@@ -12,7 +12,7 @@ class ResetController(object, mdb = None):
 		try:
 			mdb.load_movies('ml-1m/movies.dat')
 			mdb.load_users('ml-1m/users.dat')
-       		mdb.load_ratings('ml-1m/ratings.dat')
+			mdb.load_ratings('ml-1m/ratings.dat')
        	except KeyError as ex:
        		output['result'] = 'error'
 
