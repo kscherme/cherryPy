@@ -100,7 +100,7 @@ class _movie_database:
         #for movie in sorted(self.movies, key=str.lower):
             #print movie
         for key in sorted(self.movies):
-            print key
+            print (key)
 
 
 
