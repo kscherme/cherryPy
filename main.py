@@ -1,7 +1,7 @@
 # main.py
 # Katie Schermerhorn
 
-import _movie_database.py
+from _movie_database import _movie_database
 import cherrypy
 from reset import ResetController
 
