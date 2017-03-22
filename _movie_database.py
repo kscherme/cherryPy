@@ -111,6 +111,6 @@ if __name__ == "__main__":
        mdb.load_movies('ml-1m/movies.dat')
        #mdb.print_sorted_movies()
        mdb.load_ratings('ml-1m/ratings.dat')
-       print mdb.get_rating(1)
+       print (mdb.get_rating(1))
        
        #print mdb.get_rating(787)
