@@ -14,8 +14,9 @@ class MovieController(object):
 		try:
 			output['movies'] = []
 			movies = mdb.get_movies()
-			for movie in movies.items():
-				smallDict = {'genres':genres, 'title':title}
+			for key,value in movies.items():
+
+				smallDict = {'id':key, 'genres':value[1], 'title':value[0], 'result':'success'}
 				output['movies'].append(smallDict)
 		except KeyError as ex:
 			output['result'] = 'error'
