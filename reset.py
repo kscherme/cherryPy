@@ -25,15 +25,15 @@ class ResetController(object):
 
 		return json.dumps(output)
 
-	def PUT(self, mid = None):
+	# def PUT(self, mid = None):
 
-		output = {'reset':'success'}
-		try:
-			movie_list = self.orginal_movies.get_movie(mid)
-			self.mdb.set_movie(mid, movie_list)
-		except KeyError as ex:
-			output['result'] = 'error'
+	# 	output = {'reset':'success'}
+	# 	try:
+	# 		movie_list = self.orginal_movies.get_movie(mid)
+	# 		self.mdb.set_movie(mid, movie_list)
+	# 	except KeyError as ex:
+	# 		output['result'] = 'error'
 
-		return json.dumps(output)
+	# 	return json.dumps(output)
 
 	
