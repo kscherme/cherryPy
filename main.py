@@ -4,13 +4,13 @@
 from _movie_database import _movie_database
 import cherrypy
 from reset import ResetController
-#from movies import MovieController
+from movies import MovieController
 
 def start_service(mdb):
 
 	# create resource objects
 	resetController = ResetController(mdb)
-	#movieController = MovieController(mdb)
+	movieController = MovieController(mdb)
 
 	dispatcher = cherrypy.dispatch.RoutesDispatcher()
 
@@ -20,7 +20,7 @@ def start_service(mdb):
 	dispatcher.connect('reset', '/reset/:mid', controller=resetController, action = 'PUT', conditions=dict(method=['PUT']))
 
 	# movie connections
-	#dispatcher.connect('movie_get_index', '/movies/', controller=movieController, action = 'GET_INDEX', conditions=dict(method=['GET']))
+	dispatcher.connect('movie_get_index', '/movies/', controller=movieController, action = 'GET_INDEX', conditions=dict(method=['GET']))
 
 
 	conf = { 'global' 	: {'server.socket_host': 'ash.campus.nd.edu',
