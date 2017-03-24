@@ -17,7 +17,7 @@ def start_service(mdb):
 	# connections
 	# reset connections
 	dispatcher.connect('reset_index', '/reset/', controller=resetController, action = 'PUT_INDEX', conditions=dict(method=['PUT']))
-	dispatcher.connect('reset', '/reset/:movie_id', controller=resetController, action = 'PUT', conditions=dict(method=['PUT']))
+	dispatcher.connect('reset', '/reset/:mid', controller=resetController, action = 'PUT', conditions=dict(method=['PUT']))
 
 	# movie connections
 	#dispatcher.connect('movie_get_index', '/movies/', controller=movieController, action = 'GET_INDEX', conditions=dict(method=['GET']))

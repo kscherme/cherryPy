@@ -10,7 +10,7 @@ class ResetController(object):
 	def __init__(self, mdb = None):
 		self.mdb = mdb
 		self.orginal_movies = _movie_database()
-		#self.orginal_movies.load_movies('ml-1m/movies.dat') 
+		self.orginal_movies.load_movies('ml-1m/movies.dat') 
 
 
 	def PUT_INDEX(self):
