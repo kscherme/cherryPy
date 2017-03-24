@@ -29,7 +29,8 @@ class ResetController(object):
 
 		output = {'reset':'success'}
 		try:
-			self.mdb.set_movie(mid, self.orginal_movies.get_movie(mid))
+			movie_list = self.orginal_movies.get_movie(mid)
+			self.mdb.set_movie(mid, movie_list)
 		except KeyError as ex:
 			output['result'] = 'error'
 
