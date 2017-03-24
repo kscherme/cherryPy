@@ -7,7 +7,7 @@ class _movie_database:
 
     def load_movies(self, movie_file):
         self.movies.clear()
-        myfile = open(movie_file, encoding= "utf8")
+        myfile = open(movie_file, encoding= "utf-8")
         for line in myfile:
             lines = line.split("::")
             self.movies[int(lines[0])] = [lines[1], lines[2].rstrip()]
