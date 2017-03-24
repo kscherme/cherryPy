@@ -14,7 +14,7 @@ def start_service(mdb):
 	dispatcher.connect('reset', '/reset/', controller=resetController, action = 'PUT', conditions=dict(method=['PUT']))
 
 	conf = { 'global' 	: {'server.socket_host': 'ash.campus.nd.edu',
-							'server.socket_port': 40001,},
+							'server.socket_port': 40100,},
 			 '/'		: {'request.dispatch': dispatcher,} }
 
 	cherrypy.config.update(conf)
