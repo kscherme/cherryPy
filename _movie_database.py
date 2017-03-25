@@ -4,6 +4,20 @@ class _movie_database:
       self.movies = dict()
       self.users  = dict()
       self.ratings= dict()
+      self.images = dict()
+
+    def load_images(self, image_file):
+        self.images.clear()
+        myfile = open(image_file)
+        for line in myfile:
+            lines = line.split("::")
+            self.images[int(lines[0])] = lines[2]
+
+    def get_image(self, mid):
+        return self.images.get(mid)
+
+    def set_image(self, mid, filename):
+        self.images[mid] = filename
 
     def load_movies(self, movie_file):
         self.movies.clear()
