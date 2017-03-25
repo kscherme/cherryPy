@@ -92,7 +92,7 @@ class UserController(object):
 	def DELETE(self, uid):
 		output = {'result':'success'}
 		try:
-			mid = int(uid)
+			uid = int(uid)
 			self.mdb.delete_user(uid)
 		except KeyError as ex:
 			output['result'] = 'error'
