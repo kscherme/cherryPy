@@ -51,9 +51,24 @@ class MovieController(object):
 			input_body = json.loads(input_body)
 			genres = input_body['genres']
 			title = input_body['title']
-			smallDict = {'genres':genres, 'title':title}
-			self.mdb.set_movie(mid, smallDict)
+			mlist = [title, genres]
+			self.mdb.set_movie(mid, mlist)
 			output['id'] = mid
+		except KeyError as ex:
+			output['result'] = 'error'
+
+		return json.dumps(output)
+
+	def PUT(self, mid):
+		output = {'result':'success'}
+		try:
+			mid = int(mid)
+			input_body = cherrypy.request.body.read().decode()
+			input_body = json.loads(input_body)
+			genres = input_body['genres']
+			title = input_body['title']
+			mlist = [title, genres]
+			self.mdb.set_movie(mid, mlist)
 		except KeyError as ex:
 			output['result'] = 'error'
 
