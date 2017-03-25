@@ -44,7 +44,7 @@ class UserController(object):
 	def POST(self):
 		output = {'result':'success'}
 		try:
-			user_ids = self.mdb.get_movies()
+			user_ids = self.mdb.get_users()
 			if len(user_ids) == 0:
 				uid = 1
 			else:
