@@ -30,12 +30,12 @@ def start_service(mdb):
 	dispatcher.connect('movie_delete', '/movies/:mid', controller=movieController, action = 'DELETE', conditions=dict(method=['DELETE']))
 
 	# user connections
-	dispatcher.connect('user_get_index', '/movies/', controller=userController, action = 'GET_INDEX', conditions=dict(method=['GET']))
-	dispatcher.connect('user_get', '/movies/:uid', controller=userController, action = 'GET', conditions=dict(method=['GET']))
-	dispatcher.connect('user_post_index', '/movies/', controller=userController, action = 'POST', conditions=dict(method=['POST']))
-	dispatcher.connect('user_put', '/movies/:uid', controller=userController, action = 'PUT', conditions=dict(method=['PUT']))
-	dispatcher.connect('user_delete_index', '/movies/', controller=userController, action = 'DELETE_INDEX', conditions=dict(method=['DELETE']))
-	dispatcher.connect('user_delete', '/movies/:uid', controller=userController, action = 'DELETE', conditions=dict(method=['DELETE']))
+	dispatcher.connect('user_get_index', '/users/', controller=userController, action = 'GET_INDEX', conditions=dict(method=['GET']))
+	dispatcher.connect('user_get', '/users/:uid', controller=userController, action = 'GET', conditions=dict(method=['GET']))
+	dispatcher.connect('user_post_index', '/users/', controller=userController, action = 'POST', conditions=dict(method=['POST']))
+	dispatcher.connect('user_put', '/users/:uid', controller=userController, action = 'PUT', conditions=dict(method=['PUT']))
+	dispatcher.connect('user_delete_index', '/users/', controller=userController, action = 'DELETE_INDEX', conditions=dict(method=['DELETE']))
+	dispatcher.connect('user_delete', '/users/:uid', controller=userController, action = 'DELETE', conditions=dict(method=['DELETE']))
 
 	conf = { 'global' 	: {'server.socket_host': 'ash.campus.nd.edu',
 							'server.socket_port': 40100,},
