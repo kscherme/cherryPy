@@ -19,6 +19,9 @@ class _movie_database:
     def set_image(self, mid, filename):
         self.images[mid] = filename
 
+    def delete_image(self, mid):
+        self.images.pop(mid, None)
+
     def load_movies(self, movie_file):
         self.movies.clear()
         myfile = open(movie_file, encoding= "latin-1")

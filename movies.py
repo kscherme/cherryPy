@@ -74,6 +74,27 @@ class MovieController(object):
 
 		return json.dumps(output)
 
+	def DELETE_INDEX(self):
+		output = {'result':'success'}
+		try:
+			self.mdb.movies.clear()
+			self.mdb.images.clear()
+		except KeyError as ex:
+			output['result'] = 'error'
+
+		return json.dumps(output)
+
+	def DELETE(self, mid):
+		output = {'result':'success'}
+		try:
+			mid = int(mid)
+			self.mdb.delete_movie(mid)
+			self.mdb.delete_image(mid)
+		except KeyError as ex:
+			output['result'] = 'error'
+
+		return json.dumps(output)
+
 
 
 
