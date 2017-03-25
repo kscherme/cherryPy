@@ -28,10 +28,11 @@ class ResetController(object):
 
 		return json.dumps(output)
 
-	def PUT(self, mid = None):
+	def PUT(self, mid):
 
 		output = {'reset':'success'}
 		try:
+			mid = int(mid)
 			movie_list = self.orginal_movies.get_movie(mid)
 			self.mdb.set_movie(mid, movie_list)
 			image_info = self.orginal_images.get_image(mid)

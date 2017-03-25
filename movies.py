@@ -28,11 +28,11 @@ class MovieController(object):
 		output = {'result':'success'}
 		try:
 			mid = int(mid)
-			#movie_info = self.mdb.get_movie(mid)
+			movie_info = self.mdb.get_movie(mid)
 			image_info = self.mdb.get_image(mid)
-			#output['id'] = mid
-			#output['genres'] = movie_info[1]
-			#output['title'] = movie_info[0]
+			output['id'] = mid
+			output['genres'] = movie_info[1]
+			output['title'] = movie_info[0]
 			output['img'] = image_info
 		except KeyError as ex:
 			output['result'] = 'error'
