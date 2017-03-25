@@ -29,7 +29,7 @@ class MovieController(object):
 		try:
 			movie_info = self.mdb.get_movie(mid)
 			image_info = self.mdb.get_image(mid)
-			if movid_info is not None:
+			if movie_info is not None:
 				smallDict = {'id':mid, 'genres':movie_info[1], 'title':movie_info[0], 'img':image_info, 'result':'success'}
 				output.append(smallDict)
 			# movie_info = self.mdb.get_movie(mid)
