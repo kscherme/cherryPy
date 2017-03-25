@@ -23,7 +23,7 @@ def start_service(mdb):
 	dispatcher.connect('movie_get_index', '/movies/', controller=movieController, action = 'GET_INDEX', conditions=dict(method=['GET']))
 	dispatcher.connect('movie_get', '/movies/:mid', controller=movieController, action = 'GET', conditions=dict(method=['GET']))
 	dispatcher.connect('movie_post_index', '/movies/', controller=movieController, action = 'POST', conditions=dict(method=['POST']))
-	dispatcher.connect('movie_put', '/movies/:mid', controller=movieController, action = 'PUT', conditions=dict(method['PUT']))
+	dispatcher.connect('movie_put', '/movies/:mid', controller=movieController, action = 'PUT', conditions=dict(method=['PUT']))
 
 	conf = { 'global' 	: {'server.socket_host': 'ash.campus.nd.edu',
 							'server.socket_port': 40100,},
