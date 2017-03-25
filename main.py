@@ -6,6 +6,7 @@ import cherrypy
 from reset import ResetController
 from movies import MovieController
 from users import UserController
+from ratings import RatingController
 
 def start_service(mdb):
 
@@ -13,6 +14,7 @@ def start_service(mdb):
 	resetController = ResetController(mdb)
 	movieController = MovieController(mdb)
 	userController = UserController(mdb)
+	ratingController = RatingController(mdb)
 
 	dispatcher = cherrypy.dispatch.RoutesDispatcher()
 
@@ -36,6 +38,9 @@ def start_service(mdb):
 	dispatcher.connect('user_put', '/users/:uid', controller=userController, action = 'PUT', conditions=dict(method=['PUT']))
 	dispatcher.connect('user_delete_index', '/users/', controller=userController, action = 'DELETE_INDEX', conditions=dict(method=['DELETE']))
 	dispatcher.connect('user_delete', '/users/:uid', controller=userController, action = 'DELETE', conditions=dict(method=['DELETE']))
+
+	# rating connections
+	dispatcher.connect('rating_get', '/ratings/:mid', controller=ratingController, action = 'GET', conditions=dict(method=['GET']))
 
 	conf = { 'global' 	: {'server.socket_host': 'ash.campus.nd.edu',
 							'server.socket_port': 40100,},
