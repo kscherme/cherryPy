@@ -16,7 +16,7 @@ class UserController(object):
 			user_ids = self.mdb.get_users()
 			for uid in user_ids:
 				user_info = self.mdb.get_user(uid)
-				smallDict = {'id':uid, 'zipcode':user_info[4], 'age':user_info[2], 'gender':user_info[1], 'occupation':user_info[3]}
+				smallDict = {'id':uid, 'zipcode':user_info[3], 'age':user_info[1], 'gender':user_info[0], 'occupation':user_info[2]}
 				output['users'].append(smallDict)
 		except KeyError as ex:
 			output['result'] = 'error'
