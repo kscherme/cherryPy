@@ -29,7 +29,7 @@ class MovieController(object):
 		try:
 			mid = int(mid)
 			movie_ids = self.mdb.get_movies()
-			if mid is not in movie_ids:
+			if mid not in movie_ids:
 				raise KeyError()
 			movie_info = self.mdb.get_movie(mid)
 			image_info = self.mdb.get_image(mid)
