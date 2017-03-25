@@ -24,9 +24,10 @@ class MovieController(object):
 
 		return json.dumps(output)
 
-	def GET(self, mid=None ):
+	def GET(self, mid):
 		output = {'result':'success'}
 		try:
+			mid = int(mid)
 			#movie_info = self.mdb.get_movie(mid)
 			image_info = self.mdb.get_image(mid)
 			#output['id'] = mid
