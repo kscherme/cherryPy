@@ -39,7 +39,7 @@ class MovieController(object):
 
 		return json.dumps(output)
 
-	def POST_INDEX(self):
+	def POST(self):
 		output = {'result':'success'}
 		try:
 			movie_ids = self.mdb.get_movies()
