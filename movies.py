@@ -24,15 +24,19 @@ class MovieController(object):
 
 		return json.dumps(output)
 
-	def GET(self, mid ):
+	def GET(self, mid = None ):
 		output = {'result':'success'}
 		try:
 			movie_info = self.mdb.get_movie(mid)
 			image_info = self.mdb.get_image(mid)
-			output['id'] = mid
-			#output['genres'] = movie_info[1]
-			output['title'] = movie_info[0]
-			output['img'] = image_info
+			smallDict = {'id':mid, 'genres':movie_info[1], 'title':movie_info[0], 'img':image_info, 'result':'success'}
+			output.append(smallDict)
+			# movie_info = self.mdb.get_movie(mid)
+			# image_info = self.mdb.get_image(mid)
+			# output['id'] = mid
+			# #output['genres'] = movie_info[1]
+			# output['title'] = movie_info[0]
+			# output['img'] = image_info
 		except KeyError as ex:
 			output['result'] = 'error'
 
