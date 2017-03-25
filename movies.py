@@ -39,6 +39,24 @@ class MovieController(object):
 
 		return json.dumps(output)
 
+	def POST_INDEX(self):
+		output = {'result':'success'}
+		try:
+			movie_ids = self.mdb.get_movies()
+			mid = max(movie_ids) + 1
+			input_body = cherrypy.request.body.read().decode()
+			input_body = json.loads(input_body)
+			genres = input_body['genres']
+			title = input_body['title']
+			smallDict = {'genres':genres, 'title':title}
+			self.mdb.set_movie[mid] = smallDict
+			output['id'] = mid
+		except KeyError as ex:
+			output['result'] = 'error'
+
+		return json.dumps(output)
+
+
 
 
 
