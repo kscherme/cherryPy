@@ -10,7 +10,7 @@ class _movie_database:
         self.images.clear()
         myfile = open(image_file)
         for line in myfile:
-            lines = line.split("::")
+            lines = line.split("::").rstrip()
             self.images[int(lines[0])] = lines[2]
 
     def get_image(self, mid):

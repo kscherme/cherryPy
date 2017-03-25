@@ -31,7 +31,7 @@ class MovieController(object):
 			image_info = self.mdb.get_image(mid)
 			output['id'] = mid
 			output['genres'] = movie_info[1]
-			output['title'] = movie_info[2]
+			output['title'] = movie_info[0]
 			output['img'] = image_info
 		except KeyError as ex:
 			output['result'] = 'error'
