@@ -12,7 +12,7 @@ class ResetController(object):
 		self.orginal_movies = _movie_database()
 		self.orginal_movies.load_movies('ml-1m/movies.dat') 
 		self.orginal_images = _movie_database()
-		self.orginal_images.load_images('ml-1m/images.dat')
+		self.orginal_images.load_images('images.dat')
 
 
 	def PUT_INDEX(self):
@@ -22,7 +22,7 @@ class ResetController(object):
 			self.mdb.load_movies('ml-1m/movies.dat')
 			self.mdb.load_users('ml-1m/users.dat')
 			self.mdb.load_ratings('ml-1m/ratings.dat')
-			self.mdb.load_images('ml-1m/images.dat')
+			self.mdb.load_images('images.dat')
 		except KeyError as ex:
 			output['result'] = 'error'
 
