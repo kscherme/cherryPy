@@ -22,6 +22,7 @@ class RecommendationController(object):
 		output = {'result':'success'}
 		try:
 			mid = self.mdb.get_highest_rated_unvoted_movie(uid)
+			print(mid)
 			output['movie_id'] = mid
 		except KeyError as ex:
 			output['result'] = 'error'
