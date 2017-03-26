@@ -6,7 +6,7 @@ class TestUsers(unittest.TestCase):
 
 	#@classmethod
 	#def setUpClass(self):
-	SITE_URL = 'http://ash.campus.nd.edu:40001'
+	SITE_URL = 'http://ash.campus.nd.edu:40100'
 	USERS_URL = SITE_URL + '/users/'
 	RESET_URL = SITE_URL + '/reset/'
 
