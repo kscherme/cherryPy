@@ -110,11 +110,19 @@ class _movie_database:
         return self.ratings[mid].get(uid)
 
     def get_highest_rated_unvoted_movie(self, uid):
-        max_mid = get_highest_rated_movie()
-        if max_mid in self.rating[uid]:
-            return 0
-        else:
-            return max_mid
+        if len(self.ratings) == 0:
+            return None
+        max_rating = 0.0
+        max_rating_id = 10000
+        for key, value in self.ratings.items():
+            rating = self.get_rating(key)
+            if rating > max_rating and get_user_movie_rating(uid, key) == None:
+                max_rating = rating
+                max_rating_id = key
+            elif rating == max_rating and key < max_rating_id and get_user_movie_rating(uid, key) == None:
+                max_rating_id = key
+        return max_rating_id
+
 
     def delete_all_ratings(self):
         self.ratings.clear()
