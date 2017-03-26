@@ -119,7 +119,7 @@ class _movie_database:
             if rating > max_rating and self.get_user_movie_rating(uid, key) == None:
                 max_rating = rating
                 max_rating_id = key
-            elif rating == max_rating and key < max_rating_id and self.get_user_movie_rating(uid, key) == None:
+            elif rating == max_rating and key > max_rating_id and self.get_user_movie_rating(uid, key) == None:
                 max_rating_id = key
         return max_rating_id
 
