@@ -23,7 +23,7 @@ class RecommendationController(object):
 		try:
 			mid = self.mdb.get_highest_rated_unvoted_movie(uid)
 			print(mid)
-			print(self.mdb.get_user_movie_rating(uid,mid))
+			print(self.mdb.get_rating(mid))
 			output['movie_id'] = mid
 		except KeyError as ex:
 			output['result'] = 'error'
