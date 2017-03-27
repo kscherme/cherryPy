@@ -36,6 +36,7 @@ class RecommendationController(object):
 	def PUT(self, uid):
 		output = {'result':'success'}
 		try:
+			uid = int(uid)
 			input_body = cherrypy.request.body.read().decode()
 			input_body = json.loads(input_body)
 			mid = input_body['movie_id']
