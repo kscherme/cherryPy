@@ -76,12 +76,13 @@ class _movie_database:
 
     def get_rating(self, mid):
         if mid in self.ratings:
-            total = 0
-            sum_ratings = 0
-            for key, value in self.ratings[mid].items():
-                sum_ratings += float(value)
-                total += 1
-            return float(sum_ratings/total)
+            return float(sum(self.ratings[mid].values()))/float(len(self.ratings[mid]))
+            # total = 0
+            # sum_ratings = 0
+            # for key, value in self.ratings[mid].items():
+            #     sum_ratings += float(value)
+            #     total += 1
+            # return float(sum_ratings/total)
         else:
             return 0
 
