@@ -21,8 +21,13 @@ class RecommendationController(object):
 	def GET(self, uid):
 		output = {'result':'success'}
 		try:
-			mid = self.mdb.get_highest_rated_unvoted_movie(uid)
-			output['movie_id'] = mid
+			uid = int(uid)
+			uids = self.mdb.get_users()
+			if uid in uids:
+				mid = self.mdb.get_highest_rated_unvoted_movie(uid)
+				output['movie_id'] = mid
+			else:
+				output['result'] = 'error'
 		except KeyError as ex:
 			output['result'] = 'error'
 
