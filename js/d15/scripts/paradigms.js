@@ -32,3 +32,27 @@ function Button() {
 		}; 
 	}
 };
+
+function Dropdown() {
+	this.createDropdown= function(dict, id, selected) {
+		// Create form HTML element
+		this.item = document.createElement("select");
+		this.item.setAttribute("id", id);
+
+		for (var key in dict) {
+
+			var tmp = document.createElement("option");
+			tmp.setAttribute("value", key);
+			tmp.setAttribute("label", dict[key]);
+			if(dict[key] === selected){
+				tmp.setAttribute("selected", "selected");
+			}
+			this.item.appendChild(tmp);
+		}
+
+	}
+
+	this.getSelected= function() {
+		return (this.item.options[this.item.selectedIndex].value);
+	}
+}
