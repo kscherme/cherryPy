@@ -68,7 +68,7 @@ def start_service(mdb):
 	conf = { 'global' 	: {'server.socket_host': 'ash.campus.nd.edu',
 							'server.socket_port': 40100,},
 			 '/'		: {'request.dispatch': dispatcher,
-			 				'tools.CORS.on': true} }
+			 				'tools.CORS.on': True} }
 
 	cherrypy.config.update(conf)
 	app = cherrypy.tree.mount(None, config=conf)
