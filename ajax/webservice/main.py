@@ -11,9 +11,9 @@ from recommendations import RecommendationController
 from options import OptionController
 
 def CORS():
-	cherrypy.response.headers["Access_Control_Allow_Origin"] = "*"
-	cherrypy.response.headers["Access_Control_Allow_Credentials"] = "true"	
-	cherrypy.response.headers["Access_Control_Allow_Methods"] = "GET,PUT,POST,DELETE,OPTIONS"
+	cherrypy.response.headers["Access-Control-Allow-Origin"] = "*"
+	cherrypy.response.headers["Access-Control-Allow-Credentials"] = "true"	
+	cherrypy.response.headers["Access-Control-Allow-Methods"] = "GET,PUT,POST,DELETE,OPTIONS"
 
 def start_service(mdb):
 
