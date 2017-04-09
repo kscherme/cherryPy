@@ -32,3 +32,13 @@ function Button() {
 		}; 
 	}
 };
+
+// function div() {
+// 	this.createDiv= function() {
+
+// 	}
+
+// 	this.addItemToDiv= function(this) {
+		
+// 	}
+// }

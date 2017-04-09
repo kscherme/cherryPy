@@ -1,0 +1,19 @@
+#basetext { color: #0000ff; }
+.meme { font-size: 35;}
+
+#memediv
+{
+	display: flex;
+	width: 500px;
+	align-items: center;
+}
+
+#basediv 
+{
+	flex: 1;
+}
+
+#owldiv
+{
+	flex: 2;
+}
