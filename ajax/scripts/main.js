@@ -124,6 +124,53 @@ function get_rec(args) {
 	xhr.onload = function(e) {
 		if(xhr.readyState == 4) {
 			console.log(xhr.responseText);
+
+
+		var xhr1 = new XMLHttpRequest();
+		var rec_site = "http://ash.campus.nd.edu:40100/recommendations/" + uid;
+		xhr1.open("GET", rec_site, true);
+		xhr1.onload = function(e) {
+			var rec_output = xhr1.responseText;
+			var json_rec_output = JSON.parse(rec_output);
+			var mid = json_rec_output["movie_id"]
+			setMID(mid);
+			console.log("Starting: ", MID);
+
+			var xhr2 = new XMLHttpRequest();
+			var movie_site = "http://ash.campus.nd.edu:40100/movies/" + mid;
+
+			xhr2.open("GET", movie_site, true);
+			xhr2.onload = function(e) {
+				var movie_output = xhr2.responseText;
+				var json_movie_output = JSON.parse(movie_output);
+				var movie_title = json_movie_output["title"];
+				args[0].setText(movie_title);
+
+				var xhr3 = new XMLHttpRequest();
+				var rating_site = "http://ash.campus.nd.edu:40100/ratings/" + mid;
+
+				xhr3.open("GET", rating_site, true);
+				xhr3.onload = function(e) {
+					var rating_output = xhr3.responseText;
+					var json_rating_output = JSON.parse(rating_output);
+					var rating = json_rating_output["rating"];
+					args[1].setText(rating);
+					
+				};
+				xhr3.onerror = function(e) {
+					console.error(xhr3.statusText);
+				};
+				xhr3.send(null);
+			};
+			xhr2.onerror = function(e) {
+				console.error(xhr2.statusText);
+			};
+			xhr2.send(null);
+		};
+		xhr1.onerror = function(e) {
+			console.error(xhr1.statusText);
+		};
+	xhr1.send(null);
 		}
 
 	};
@@ -132,53 +179,6 @@ function get_rec(args) {
 	};
 
 	xhr.send(null);
-
-
-	var xhr1 = new XMLHttpRequest();
-	var rec_site = "http://ash.campus.nd.edu:40100/recommendations/" + uid;
-	xhr1.open("GET", rec_site, true);
-	xhr1.onload = function(e) {
-		var rec_output = xhr1.responseText;
-		var json_rec_output = JSON.parse(rec_output);
-		var mid = json_rec_output["movie_id"]
-		setMID(mid);
-		console.log("Starting: ", MID);
-
-		var xhr2 = new XMLHttpRequest();
-		var movie_site = "http://ash.campus.nd.edu:40100/movies/" + mid;
-
-		xhr2.open("GET", movie_site, true);
-		xhr2.onload = function(e) {
-			var movie_output = xhr2.responseText;
-			var json_movie_output = JSON.parse(movie_output);
-			var movie_title = json_movie_output["title"];
-			args[0].setText(movie_title);
-
-			var xhr3 = new XMLHttpRequest();
-			var rating_site = "http://ash.campus.nd.edu:40100/ratings/" + mid;
-
-			xhr3.open("GET", rating_site, true);
-			xhr3.onload = function(e) {
-				var rating_output = xhr3.responseText;
-				var json_rating_output = JSON.parse(rating_output);
-				var rating = json_rating_output["rating"];
-				args[1].setText(rating);
-				
-			};
-			xhr3.onerror = function(e) {
-				console.error(xhr3.statusText);
-			};
-			xhr3.send(null);
-		};
-		xhr2.onerror = function(e) {
-			console.error(xhr2.statusText);
-		};
-		xhr2.send(null);
-	};
-	xhr1.onerror = function(e) {
-		console.error(xhr1.statusText);
-	};
-	xhr1.send(null);
 }
 
 function setMID(mid){
