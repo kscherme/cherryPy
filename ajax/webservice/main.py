@@ -11,9 +11,9 @@ from recommendations import RecommendationController
 from options import OptionController
 
 def CORS():
-	cherrypy.response.headers['Access-Control-Allow-Origin'] = "*"
-	cherrypy.response.headers['Access-Control-Allow-Credentials'] = "true"	
-	cherrypy.response.headers['Access-Control-Allow-Methods'] = "GET,PUT,POST,DELETE,OPTIONS"
+	cherrypy.response.headers["Access-Control-Allow-Origin"] = "*"
+	cherrypy.response.headers["Access-Control-Allow-Credentials"] = "true"	
+	cherrypy.response.headers["Access-Control-Allow-Methods"] = "GET,PUT,POST,DELETE,OPTIONS"
 
 def start_service(mdb):
 
@@ -30,9 +30,9 @@ def start_service(mdb):
 	# connections
 	# reset connections
 	dispatcher.connect('reset_index', '/reset/', controller=resetController, action = 'PUT_INDEX', conditions=dict(method=['PUT']))
-	dispatcher.connect('reset_index_option', '/reset/', controller=optionController, action = 'OPTION', conditions=dict(method=['OPTION']))
+	dispatcher.connect('reset_index_option', '/reset/', controller=optionController, action = 'OPTIONS', conditions=dict(method=['OPTIONS']))
 	dispatcher.connect('reset', '/reset/:mid', controller=resetController, action = 'PUT', conditions=dict(method=['PUT']))
-	dispatcher.connect('reset_option', '/reset/:mid', controller=optionController, action = 'OPTION', conditions=dict(method=['OPTION']))
+	dispatcher.connect('reset_option', '/reset/:mid', controller=optionController, action = 'OPTIONS', conditions=dict(method=['OPTIONS']))
 
 	# movie connections
 	dispatcher.connect('movie_get_index', '/movies/', controller=movieController, action = 'GET_INDEX', conditions=dict(method=['GET']))
@@ -41,8 +41,8 @@ def start_service(mdb):
 	dispatcher.connect('movie_put', '/movies/:mid', controller=movieController, action = 'PUT', conditions=dict(method=['PUT']))
 	dispatcher.connect('movie_delete_index', '/movies/', controller=movieController, action = 'DELETE_INDEX', conditions=dict(method=['DELETE']))
 	dispatcher.connect('movie_delete', '/movies/:mid', controller=movieController, action = 'DELETE', conditions=dict(method=['DELETE']))
-	dispatcher.connect('movie_index_option', '/movies/', controller=optionController, action = 'OPTION', conditions=dict(method=['OPTION']))
-	dispatcher.connect('movie_option', '/movies/:mid', controller=optionController, action = 'OPTION', conditions=dict(method=['OPTION']))
+	dispatcher.connect('movie_index_option', '/movies/', controller=optionController, action = 'OPTIONS', conditions=dict(method=['OPTIONS']))
+	dispatcher.connect('movie_option', '/movies/:mid', controller=optionController, action = 'OPTIONS', conditions=dict(method=['OPTIONS']))
 
 	# user connections
 	dispatcher.connect('user_get_index', '/users/', controller=userController, action = 'GET_INDEX', conditions=dict(method=['GET']))
@@ -51,19 +51,19 @@ def start_service(mdb):
 	dispatcher.connect('user_put', '/users/:uid', controller=userController, action = 'PUT', conditions=dict(method=['PUT']))
 	dispatcher.connect('user_delete_index', '/users/', controller=userController, action = 'DELETE_INDEX', conditions=dict(method=['DELETE']))
 	dispatcher.connect('user_delete', '/users/:uid', controller=userController, action = 'DELETE', conditions=dict(method=['DELETE']))
-	dispatcher.connect('user_index_option', '/users/', controller=optionController, action = 'OPTION', conditions=dict(method=['OPTION']))
-	dispatcher.connect('user_option', '/users/:uid', controller=optionController, action = 'OPTION', conditions=dict(method=['OPTION']))
+	dispatcher.connect('user_index_option', '/users/', controller=optionController, action = 'OPTIONS', conditions=dict(method=['OPTIONS']))
+	dispatcher.connect('user_option', '/users/:uid', controller=optionController, action = 'OPTIONS', conditions=dict(method=['OPTIONS']))
 
 	# rating connections
 	dispatcher.connect('rating_get', '/ratings/:mid', controller=ratingController, action = 'GET', conditions=dict(method=['GET']))
-	dispatcher.connect('rating_option', '/ratings/:mid', controller=optionController, action = 'OPTION', conditions=dict(method=['OPTION']))
+	dispatcher.connect('rating_option', '/ratings/:mid', controller=optionController, action = 'OPTIONS', conditions=dict(method=['OPTIONS']))
 
 	# recommendation connections
 	dispatcher.connect('recommendation_delete_index', '/recommendations/', controller=recommendationController, action = 'DELETE_INDEX', conditions=dict(method=['DELETE']))
 	dispatcher.connect('recommendation_get', '/recommendations/:uid', controller=recommendationController, action = 'GET', conditions=dict(method=['GET']))
 	dispatcher.connect('recommendation_put', '/recommendations/:uid', controller=recommendationController, action = 'PUT', conditions=dict(method=['PUT']))
-	dispatcher.connect('recommendation_index_option', '/recommendations/', controller=optionController, action = 'OPTION', conditions=dict(method=['OPTION']))
-	dispatcher.connect('recommendation_option', '/recommendations/:uid', controller=optionController, action = 'OPTION', conditions=dict(method=['OPTION']))
+	dispatcher.connect('recommendation_index_option', '/recommendations/', controller=optionController, action = 'OPTIONS', conditions=dict(method=['OPTIONS']))
+	dispatcher.connect('recommendation_option', '/recommendations/:uid', controller=optionController, action = 'OPTIONS', conditions=dict(method=['OPTIONS']))
 
 	conf = { 'global' 	: {'server.socket_host': 'ash.campus.nd.edu',
 							'server.socket_port': 40100,},
@@ -77,6 +77,6 @@ def start_service(mdb):
 
 #create movieDBobject
 if __name__ == "__main__":
-	cherrypy.tools.CORS = cherrypy.Tool('before_finalize', CORS)
 	mdb = _movie_database()
+	cherrypy.tools.CORS = cherrypy.Tool('before_finalize', CORS)
 	start_service(mdb)
