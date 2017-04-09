@@ -18,6 +18,14 @@ function Label() {
 
 };
 
+function Image() {
+	this.createImage= function(src, id) {
+		this.item = document.createElement("img");
+		this.item.setAttribute("id", id);
+		this.item.src = src;
+	}
+}
+
 function Button() {
 	this.createButton= function(text, id) {
 		this.item = document.createElement("button");
@@ -34,11 +42,14 @@ function Button() {
 };
 
 // function div() {
-// 	this.createDiv= function() {
-
+// 	this.createDiv= function(id, className) {
+// 		this.item = document.createElement("div");
+// 		this.item.setAttribute("id", id);
+// 		this.item.setAttribute("className",className);
 // 	}
 
 // 	this.addItemToDiv= function(this) {
-		
+// 		this.appendChild(this.item);
+
 // 	}
 // }

@@ -10,6 +10,12 @@ var upbutton = new Button();
 upbutton.createButton("UP", "upbutton");
 upbutton.addToDocument();
 
+// Create image 
+Image.prototype = new Item();
+var img = new Image();
+img.createImage("http://www.cse.nd.edu/~cmc/teaching/cse30332_sp16/images/agy8DheVu5zpQFbXfAdvYivF2FU.jpg", "img");
+img.addToDocument();
+
 Button.prototype = new Item();
 var downbutton = new Button();
 downbutton.createButton("DOWN", "downButton");
