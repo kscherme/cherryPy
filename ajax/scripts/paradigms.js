@@ -22,9 +22,13 @@ function Image() {
 	this.createImage= function(src, id) {
 		this.item = document.createElement("img");
 		this.item.setAttribute("id", id);
-		this.item.src = src;
+		this.item.setAttribute("src", src);
 	}
-}
+
+	this.changeSource= function(src) {
+		this.item.setAttribute("src", src);
+	}
+};
 
 function Button() {
 	this.createButton= function(text, id) {
@@ -41,15 +45,14 @@ function Button() {
 	}
 };
 
-// function div() {
-// 	this.createDiv= function(id, className) {
-// 		this.item = document.createElement("div");
-// 		this.item.setAttribute("id", id);
-// 		this.item.setAttribute("className",className);
-// 	}
+function Div() {
+	this.createDiv= function(id) {
+		this.item = document.createElement("div");
+		this.item.setAttribute("id", id);
+	}
 
-// 	this.addItemToDiv= function(this) {
-// 		this.appendChild(this.item);
+	this.addItemToDiv= function(item) {
+		this.item.appendChild(item.item);
 
-// 	}
-// }
+	}
+};

@@ -13,7 +13,7 @@ upbutton.addToDocument();
 // Create image 
 Image.prototype = new Item();
 var img = new Image();
-img.createImage("http://www.cse.nd.edu/~cmc/teaching/cse30332_sp16/images/agy8DheVu5zpQFbXfAdvYivF2FU.jpg", "img");
+img.createImage("http://www.cse.nd.edu/~cmc/teaching/cse30332/images/agy8DheVu5zpQFbXfAdvYivF2FU.jpg", "img");
 img.addToDocument();
 
 Button.prototype = new Item();
@@ -32,11 +32,43 @@ var MID;
 var uid = 32;
 args = [movieLabel, ratingLabel];
 
+// set up css
+Div.prototype = new Item();
+var divupbutton = new Div();
+divupbutton.createDiv("buttons");
+divupbutton.addItemToDiv(upbutton);
+var divdownbutton = new Div();
+divdownbutton.createDiv("buttons");
+divdownbutton.addItemToDiv(downbutton);
+var divimage = new Div();
+divimage.createDiv("image");
+divimage.addItemToDiv(img);
+var divtitle = new Div();
+divtitle.createDiv("top");
+divtitle.addItemToDiv(movieLabel);
+var divrating = new Div();
+divrating.createDiv("bottom");
+divrating.addItemToDiv(ratingLabel);
+var middle = new Div();
+middle.createDiv("middle");
+middle.addItemToDiv(divupbutton);
+middle.addItemToDiv(divimage);
+middle.addItemToDiv(divdownbutton);
+var main = new Div();
+main.createDiv("main");
+main.addItemToDiv(divtitle);
+main.addItemToDiv(middle);
+main.addItemToDiv(divrating);
+main.addToDocument();
+
+
+
 // get initial recs
 get_rec(args);
 
 upbutton.addCLickEventHandler(upVoteMovieHandler, args);
 downbutton.addCLickEventHandler(downVoteMovieHandler, args);
+
 
 function upVoteMovieHandler(args) {
 
@@ -81,6 +113,9 @@ function putRequest(vote) {
 					var movie_output = xhr2.responseText;
 					var json_movie_output = JSON.parse(movie_output);
 					var movie_title = json_movie_output["title"];
+					var link = json_movie_output["img"];
+					var src = "http://www.cse.nd.edu/~cmc/teaching/cse30332/images" + link;
+					img.changeSource(src);
 					args[0].setText(movie_title);
 
 					var xhr3 = new XMLHttpRequest();
@@ -138,7 +173,7 @@ function get_rec(args) {
 		xhr1.onload = function(e) {
 			var rec_output = xhr1.responseText;
 			var json_rec_output = JSON.parse(rec_output);
-			var mid = json_rec_output["movie_id"]
+			var mid = json_rec_output["movie_id"];
 			setMID(mid);
 			console.log("Starting: ", MID);
 
@@ -150,6 +185,9 @@ function get_rec(args) {
 				var movie_output = xhr2.responseText;
 				var json_movie_output = JSON.parse(movie_output);
 				var movie_title = json_movie_output["title"];
+				var link = json_movie_output["img"];
+				var src = "http://www.cse.nd.edu/~cmc/teaching/cse30332/images" + link;
+				img.changeSource(src);
 				args[0].setText(movie_title);
 
 				var xhr3 = new XMLHttpRequest();
