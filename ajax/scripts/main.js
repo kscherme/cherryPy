@@ -117,6 +117,22 @@ function putRequest(vote) {
 
 function get_rec(args) {
 
+	var xhr = new XMLHttpRequest();
+	var site = "http://ash.campus.nd.edu:40100/reset/";
+	xhr.open("PUT", site, true);
+
+	xhr.onload = function(e) {
+		if(xhr.readyState == 4) {
+			console.log(xhr.responseText);
+		}
+
+	};
+	xhr.onerror = function(e) {
+		console.error(xhr.statusText);
+	};
+
+	xhr.send(null);
+
 
 	var xhr1 = new XMLHttpRequest();
 	var rec_site = "http://ash.campus.nd.edu:40100/recommendations/" + uid;

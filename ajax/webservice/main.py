@@ -13,7 +13,7 @@ from options import OptionController
 def CORS():
 	cherrypy.response.headers["Access-Control-Allow-Origin"] = "*"
 	cherrypy.response.headers["Access-Control-Allow-Credentials"] = "true"	
-	cherrypy.response.headers["Access-Control-Allow-Methods"] = "GET, PUT, POST, DELETE, OPTIONS"
+	cherrypy.response.headers["Access-Control-Allow-Methods"] = "GET,PUT,POST,DELETE,OPTIONS"
 
 def start_service(mdb):
 
@@ -68,7 +68,8 @@ def start_service(mdb):
 	conf = { 'global' 	: {'server.socket_host': 'ash.campus.nd.edu',
 							'server.socket_port': 40100,},
 			 '/'		: {'request.dispatch': dispatcher,
-			 				'tools.CORS.on': True} }
+			 				'tools.CORS.on': True,}
+			 				}
 
 	cherrypy.config.update(conf)
 	app = cherrypy.tree.mount(None, config=conf)
