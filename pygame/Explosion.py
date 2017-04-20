@@ -21,7 +21,7 @@ class Explosion(pygame.sprite.Sprite):
 				img_name = "deathstar/explosion/frames000a.png"
 				if self.frames_count < 10:
 					img_name = "deathstar/explosion/frames00" + str(self.frames_count) + "a.png"
-				elif self.frames_count > 10:
+				elif self.frames_count >= 10:
 					img_name = "deathstar/explosion/frames0" + str(self.frames_count) + "a.png"
 				self.img = pygame.image.load(img_name)
 				self.explode_countdown = 5
