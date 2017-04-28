@@ -7,8 +7,8 @@ class MyCommandConnection(Protocol):
 
 	def connectionMade(self):
 		print "Command Connection Made!"
-		reactor.listenTCP(41100, MyClientConnectionFactory())
-		# self.transport.write("GET /movies/32 HTTP/1.0\r\n\r\n")
+		reactor.listenTCP(41100, MyClientConnectionFactory(self))
+		#self.transport.write("startdataconnection")
 		# Start listening on client port
 		# reactor.listenTCP(41100, MyConnectionFactory())
 
@@ -16,9 +16,13 @@ class MyCommandConnection(Protocol):
 		print "Got data: ", data
 
 class MyClientConnection(Protocol):
+
+        def __init__(self,cmd_conn):
+                self.cmd_conn = cmd_conn
         
         def connectionMade(self):
                 print "Client Connection Made!"
+                self.cmd_conn.transport.write("startdataconnection")
 
         def dataReceived(self, data):
                 print "Got data: ", data
@@ -33,8 +37,8 @@ class MyCommandConnectionFactory(Factory):
 
 class MyClientConnectionFactory(Factory):
 
-        def __init__(self):
-                self.mycliconn = MyClientConnection()
+        def __init__(self, cmd_conn):
+                self.mycliconn = MyClientConnection(cmd_conn)
 
         def buildProtocol(self, addr):
                 return self.mycliconn

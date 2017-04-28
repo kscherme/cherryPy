@@ -39,9 +39,9 @@ class MyCommandConnectionFactory(ClientFactory):
 
 
 # Create service connection
-reactor.connectTCP("student00.cse.nd.edu", 22, MyConnectionFactory())
+reactor.connectTCP("student00.cse.nd.edu", 22, MyServiceConnectionFactory())
 
 # Create command connection
-reactor.connectTCP("ash.campus.nd.edu", 40100, MyConnectionFactory())
+reactor.connectTCP("ash.campus.nd.edu", 40100, MyCommandConnectionFactory())
 
 reactor.run()
