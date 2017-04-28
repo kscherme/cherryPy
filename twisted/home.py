@@ -2,29 +2,45 @@ from twisted.internet.protocol import Factory
 from twisted.internet.protocol import Protocol
 from twisted.internet import reactor
 
-class MyConnection(Protocol):
+class MyCommandConnection(Protocol):
 
 	def connectionMade(self):
-		print "New Connection Made!"
-		self.transport.write("GET /movies/32 HTTP/1.0\r\n\r\n")
+		print "Command Connection Made!"
+		# self.transport.write("GET /movies/32 HTTP/1.0\r\n\r\n")
 		# Start listening on client port
-		reactor.listenTCP(41100, MyConnectionFactory())
+		# reactor.listenTCP(41100, MyConnectionFactory())
 
 	def dataReceived(self, data):
 		print "Got data: ", data
 
-class MyConnectionFactory(Factory):
+class MyClientConnection(Protocol):
+        
+        def connectionMade(self):
+                print "Client Connection Made!"
 
-	def __init__(self):
-		self.myconn = MyConnection()
+        def dataReceived(self, data):
+                print "Got data: ", data
+
+class MyCommandConnectionFactory(Factory):
+
+	def __init__(self, ):
+		self.mycmdconn = MyCommandConnection()
 
 	def buildProtocol(self, addr):
-		return self.myconn
+		return self.mycmdconn
+
+class MyClientConnectionFactory(Factory):
+
+        def __init__(self):
+                self.mycliconn = MyClientConnection()
+
+        def buildProtocol(self, addr):
+                return self.mycliconn
 
 # Start listening on command port
-reactor.listenTCP(40100, MyConnectionFactory())
+reactor.listenTCP(40100, MyCommandConnectionFactory(self))
 
-# Start listen on client port
-reactor.listenTCP(41100, MyConnectionFactory())
+# Start listening on client port
+reactor.listenTCP(41100, MyClientConnectionFactory())
 
 reactor.run()
