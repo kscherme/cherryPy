@@ -2,22 +2,40 @@ from twisted.internet.protocol import ClientFactory
 from twisted.internet.protocol import Protocol
 from twisted.internet import reactor
 
-class MyConnection(Protocol):
+class MyServiceConnection(Protocol):
 
 	def connectionMade(self):
-		print "New Connection Made!"
+		print "Service Connection Made!"
 		#self.transport.write("GET /movies/32 HTTP/1.0\r\n\r\n")
 
 	def dataReceived(self, data):
 		print "Got data: ", data
 
-class MyConnectionFactory(ClientFactory):
+
+class MyCommandConnection(Protocol):
+
+	def connectionMade(self):
+		print "Command Connection Made!"
+		#self.transport.write("GET /movies/32 HTTP/1.0\r\n\r\n")
+
+	def dataReceived(self, data):
+		print "Got data: ", data
+
+class MyServiceConnectionFactory(ClientFactory):
 
 	def __init__(self):
-		self.myconn = MyConnection()
+		self.myservconn = MyServiceConnection()
 
 	def buildProtocol(self, addr):
-		return self.myconn
+		return self.myservconn
+
+class MyCommandConnectionFactory(ClientFactory):
+
+	def __init__(self):
+		self.mycmdconn = MyCommandConnection()
+
+	def buildProtocol(self, addr):
+		return self.mycmdconn
 
 
 # Create service connection

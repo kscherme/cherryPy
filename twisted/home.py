@@ -4,8 +4,10 @@ from twisted.internet import reactor
 
 class MyCommandConnection(Protocol):
 
+
 	def connectionMade(self):
 		print "Command Connection Made!"
+		reactor.listenTCP(41100, MyClientConnectionFactory())
 		# self.transport.write("GET /movies/32 HTTP/1.0\r\n\r\n")
 		# Start listening on client port
 		# reactor.listenTCP(41100, MyConnectionFactory())
@@ -23,11 +25,11 @@ class MyClientConnection(Protocol):
 
 class MyCommandConnectionFactory(Factory):
 
-	def __init__(self, ):
-		self.mycmdconn = MyCommandConnection()
+		def __init__(self):
+				self.mycmdconn = MyCommandConnection()
 
-	def buildProtocol(self, addr):
-		return self.mycmdconn
+		def buildProtocol(self, addr):
+				return self.mycmdconn
 
 class MyClientConnectionFactory(Factory):
 
@@ -38,9 +40,9 @@ class MyClientConnectionFactory(Factory):
                 return self.mycliconn
 
 # Start listening on command port
-reactor.listenTCP(40100, MyCommandConnectionFactory(self))
+reactor.listenTCP(40100, MyCommandConnectionFactory())
 
 # Start listening on client port
-reactor.listenTCP(41100, MyClientConnectionFactory())
+#reactor.listenTCP(41100, MyClientConnectionFactory())
 
 reactor.run()
