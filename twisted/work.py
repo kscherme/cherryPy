@@ -27,6 +27,8 @@ class MyDataConnection(Protocol):
 
 	def connectionMade(self):
 		print "Data Connection Made!"
+		# Create service connection
+		reactor.connectTCP("student00.cse.nd.edu", 22, MyServiceConnectionFactory())
 		#self.transport.write("GET /movies/32 HTTP/1.0\r\n\r\n")
 
 	def dataReceived(self, data):
@@ -57,7 +59,7 @@ class MyDataConnectionFactory(ClientFactory):
 		return self.mydataconn
 
 # Create service connection
-reactor.connectTCP("student00.cse.nd.edu", 22, MyServiceConnectionFactory())
+#reactor.connectTCP("student00.cse.nd.edu", 22, MyServiceConnectionFactory())
 
 # Create command connection
 reactor.connectTCP("ash.campus.nd.edu", 40100, MyCommandConnectionFactory())
