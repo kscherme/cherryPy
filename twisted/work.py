@@ -6,20 +6,20 @@ class MyServiceConnection(Protocol):
 
 	def connectionMade(self):
 		print "Service Connection Made!"
-		#self.transport.write("GET /movies/32 HTTP/1.0\r\n\r\n")
 
 	def dataReceived(self, data):
-		print "Got data: ", data
+		print "Got data over service connection: ", data
 
 
 class MyCommandConnection(Protocol):
 
 	def connectionMade(self):
 		print "Command Connection Made!"
-		#self.transport.write("GET /movies/32 HTTP/1.0\r\n\r\n")
 
 	def dataReceived(self, data):
-		print "Got data: ", data
+		print "Got data over command connection: ", data
+
+		# Start data connection if home tells you to
 		if data == "startdataconnection":
 			reactor.connectTCP("ash.campus.nd.edu", 42100, MyDataConnectionFactory())
 
@@ -29,10 +29,9 @@ class MyDataConnection(Protocol):
 		print "Data Connection Made!"
 		# Create service connection
 		reactor.connectTCP("student00.cse.nd.edu", 22, MyServiceConnectionFactory())
-		#self.transport.write("GET /movies/32 HTTP/1.0\r\n\r\n")
 
 	def dataReceived(self, data):
-		print "Got data: ", data
+		print "Got data over data connection: ", data
 
 class MyServiceConnectionFactory(ClientFactory):
 
@@ -57,9 +56,6 @@ class MyDataConnectionFactory(ClientFactory):
 
 	def buildProtocol(self, addr):
 		return self.mydataconn
-
-# Create service connection
-#reactor.connectTCP("student00.cse.nd.edu", 22, MyServiceConnectionFactory())
 
 # Create command connection
 reactor.connectTCP("ash.campus.nd.edu", 40100, MyCommandConnectionFactory())

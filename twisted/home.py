@@ -5,15 +5,14 @@ from twisted.internet import reactor
 class MyCommandConnection(Protocol):
 
 
-	def connectionMade(self):
-		print "Command Connection Made!"
-		reactor.listenTCP(41100, MyClientConnectionFactory(self))
-		#self.transport.write("startdataconnection")
-		# Start listening on client port
-		# reactor.listenTCP(41100, MyConnectionFactory())
+		def connectionMade(self):
+				print "Command Connection Made!"
 
-	def dataReceived(self, data):
-		print "Got data: ", data
+				# Listen on the Client Connection
+				reactor.listenTCP(41100, MyClientConnectionFactory(self))
+
+		def dataReceived(self, data):
+				print "Got data over command connection: ", data
 
 class MyClientConnection(Protocol):
 
@@ -22,11 +21,13 @@ class MyClientConnection(Protocol):
         
         def connectionMade(self):
                 print "Client Connection Made!"
+
+                # Through command connection tell work to start data connection
                 self.cmd_conn.transport.write("startdataconnection")
                 reactor.listenTCP(42100, MyDataConnectionFactory(self))
 
         def dataReceived(self, data):
-                print "Got data: ", data
+                print "Got data over client connection: ", data
 
 class MyDataConnection(Protocol):
 
@@ -35,11 +36,9 @@ class MyDataConnection(Protocol):
         
         def connectionMade(self):
                 print "Data Connection Made!"
-                #self.cmd_conn.transport.write("startdataconnection")
-                #reactor.listenTCP(42100, MyDataConnectionFactory(self))
 
         def dataReceived(self, data):
-                print "Got data: ", data
+                print "Got data over data connection: ", data
 
 class MyCommandConnectionFactory(Factory):
 
@@ -67,8 +66,5 @@ class MyDataConnectionFactory(Factory):
 
 # Start listening on command port
 reactor.listenTCP(40100, MyCommandConnectionFactory())
-
-# Start listening on client port
-#reactor.listenTCP(41100, MyClientConnectionFactory())
 
 reactor.run()
