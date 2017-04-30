@@ -24,11 +24,10 @@ class MyClientConnection(Protocol):
                 self.data_conn = None
         
         def connectionMade(self):
-                print "Client Connection Made!"
-
-                # Through command connection tell work to start data connection
-                self.cmd_conn.transport.write("startdataconnection")
-                reactor.listenTCP(42100, MyDataConnectionFactory(self))
+        		print "Client Connection Made!"
+        		# Through command connection tell work to start data connection
+        		self.cmd_conn.transport.write("startdataconnection")
+        		reactor.listenTCP(42100, MyDataConnectionFactory(self))
 
 		def forwardData(self,data):
 				self.data_conn.transport.write(data)
