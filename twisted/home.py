@@ -1,6 +1,7 @@
 from twisted.internet.protocol import Factory
 from twisted.internet.protocol import Protocol
 from twisted.internet import reactor
+from twisted.internet.defer import DeferredQueue
 
 
 class MyCommandConnection(Protocol):
