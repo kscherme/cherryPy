@@ -17,19 +17,19 @@ class MyCommandConnection(Protocol):
 				print "Got data over command connection: ", data
 
 class MyClientConnection(Protocol):
+		def __init__(self,cmd_conn):
+				self.cmd_conn = cmd_conn
+				self.queue = DeferredQueue()
+				self.data_conn = None
+		
 
-        def __init__(self,cmd_conn):
-                self.cmd_conn = cmd_conn
-                self.queue = DeferredQueue()
-                self.data_conn = None
-        
-        def connectionMade(self):
+		def connectionMade(self):
         		print "Client Connection Made!"
         		# Through command connection tell work to start data connection
         		self.cmd_conn.transport.write("startdataconnection")
         		reactor.listenTCP(42100, MyDataConnectionFactory(self))
 
-		def forwardData(self,data):
+        def forwardData(self,data):
 				self.data_conn.transport.write(data)
 				self.queue.get().addCallback(self.forwardData)
 
@@ -38,8 +38,8 @@ class MyClientConnection(Protocol):
         		self.queue.get().addCallback(self.forwardData)
 
         def dataReceived(self, data):
-                print "Got data over client connection: ", data
-                self.queue.put(data)
+        		print "Got data over client connection: ", data
+        		self.queue.put(data)
 
 class MyDataConnection(Protocol):
 
