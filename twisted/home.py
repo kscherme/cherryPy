@@ -30,10 +30,6 @@ class MyClientConnection(Protocol):
                 self.cmd_conn.transport.write("startdataconnection")
                 reactor.listenTCP(42100, MyDataConnectionFactory(self))
 
-        def dataReceived(self, data):
-                print "Got data over client connection: ", data
-                self.queue.put(data)
-
 		def forwardData(self,data):
 				self.data_conn.transport.write(data)
 				self.queue.get().addCallback(self.forwardData)
@@ -41,6 +37,10 @@ class MyClientConnection(Protocol):
 		def startForwarding(self,data_conn):
         		self.data_conn = data_conn
         		self.queue.get().addCallback(self.forwardData)
+
+        def dataReceived(self, data):
+                print "Got data over client connection: ", data
+                self.queue.put(data)
 
 class MyDataConnection(Protocol):
 
