@@ -2,6 +2,7 @@ from twisted.internet.protocol import Factory
 from twisted.internet.protocol import Protocol
 from twisted.internet import reactor
 
+
 class MyCommandConnection(Protocol):
 
 
@@ -18,6 +19,8 @@ class MyClientConnection(Protocol):
 
         def __init__(self,cmd_conn):
                 self.cmd_conn = cmd_conn
+                self.queue = DeferredQueue()
+                self.data_conn = None
         
         def connectionMade(self):
                 print "Client Connection Made!"
@@ -28,6 +31,15 @@ class MyClientConnection(Protocol):
 
         def dataReceived(self, data):
                 print "Got data over client connection: ", data
+                self.queue.put(data)
+
+		def forwardData(self,data):
+				self.data_conn.transport.write(data)
+				self.queue.get().addCallback(self.forwardData)
+
+        def startForwarding(self,data_conn):
+        		self.data_conn = data_conn
+				self.queue.get().addCallback(self.forwardData)
 
 class MyDataConnection(Protocol):
 
@@ -36,9 +48,11 @@ class MyDataConnection(Protocol):
         
         def connectionMade(self):
                 print "Data Connection Made!"
+                self.cli_conn.startForwarding(self)
 
         def dataReceived(self, data):
                 print "Got data over data connection: ", data
+                self.cli_conn.transport.write(data)
 
 class MyCommandConnectionFactory(Factory):
 
