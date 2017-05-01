@@ -1,5 +1,5 @@
-// YOUR NAME HERE
-// DATE HERE
+// Katie Schermerhorn
+// May 1, 2017
 
 package main
 
@@ -12,6 +12,7 @@ import (
 func queryServer(query, service string, c chan string) {
     // use net.Dial to make a tcp connection to service
     // (or if your initials are "JC" you may be dialing moscow service instead)
+    conn, err := net.Dial("tcp", service)
 
     // check to be sure that the dialing connected properly
     // be sure that your call to net.Dial saves the error in a variable err
@@ -20,8 +21,10 @@ func queryServer(query, service string, c chan string) {
     }
 
     // use fmt.Fprintf to send the query over the connection
+    fmt.Fprintf(conn, query)
 
     // create a new Reader using bufio.NewReader() for the connection
+    reader:= bufio.NewReader(conn)
 
     // create an empty string variable
     resp := ""
@@ -36,16 +39,25 @@ func queryServer(query, service string, c chan string) {
     }
 
     // write the string resp to the channel
+    c<-resp
 }
 
 func main() {
     // first make a channel for strings
+    c :=  make( chan string )
 
     // call queryServer in a goroutine once for each query
+    service:="ash.campus.nd.edu:40001"
+    query1:= "GET /movies/32 HTTP/1.0\r\n\r\n"
+    query2:= "GET /ratings/32 HTTP/1.0\r\n\r\n"
+    go queryServer(query1, service, c)
+    go queryServer(query2, service, c)
 
     // read from the channel twice, once to collect data from each goroutine
     // remember that the channel will block on the read until the channel is written to by one of the goroutines
     // save the responses as string variables resp1 and resp2
+    resp1 := <-c
+    resp2 := <-c
 
     // print out the resp1 and resp2
     fmt.Println("=================== RESPONSE 1 ===================\n")
